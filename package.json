@@ -1,0 +1,55 @@
+{
+  "name": "publish-gauge",
+  "version": "1.0.0",
+  "description": "Check what npm publish will actually ship before you publish: packs the tarball and verifies entry points, exports and bin targets exist and load, types resolve, no secrets or junk are included, and size stays within budget. Text/JSON/SARIF/Markdown, allowlist with expiry, GitHub Action. Zero deps.",
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "publish-gauge": "bin/publish-gauge.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "action.yml",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [
+    "npm",
+    "publish",
+    "pack",
+    "tarball",
+    "exports",
+    "types",
+    "package-json",
+    "prepublish",
+    "lint",
+    "sarif",
+    "github-action"
+  ],
+  "author": "Louis Wright <hello@louiswright.co.uk> (https://github.com/MrLouisWright)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrLouisWright/publish-gauge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MrLouisWright/publish-gauge/issues"
+  },
+  "homepage": "https://github.com/MrLouisWright/publish-gauge#readme"
+}

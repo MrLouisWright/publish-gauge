@@ -1,0 +1,12 @@
+{
+  "name": "broken-fixture",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": { "broken": "bin/cli.js" },
+  "exports": {
+    ".": { "import": "./lib/esm.cjs", "types": "./types/index.d.ts", "default": "./lib/load.js" },
+    "./util": "./lib/util.js"
+  },
+  "dependencies": { "sibling": "file:../sibling" }
+}

@@ -1,0 +1,53 @@
+name: 'publish-gauge'
+description: 'Verify the npm tarball before publishing: entry points, exports, types, secrets, junk and size'
+author: 'Louis Wright'
+branding: { icon: 'package', color: 'blue' }
+inputs:
+  path: { description: 'Project directory (default: repository root)', default: '.' }
+  max-size: { description: 'Packed size budget, e.g. 500kb or 2mb', default: '' }
+  tarball: { description: 'Check an existing .tgz instead of running npm pack', default: '' }
+  run-scripts: { description: 'Run prepack/prepare scripts while packing (true/false)', default: 'false' }
+  fail-on: { description: 'critical | high | medium | low | info | none', default: 'high' }
+  config: { description: 'Path to JSON config file', default: '' }
+  sarif: { description: 'Write SARIF to this path', default: '' }
+  json: { description: 'Write JSON report to this path', default: '' }
+  job-summary: { description: 'Write the Markdown report to the job summary (true/false)', default: 'true' }
+  args: { description: 'Extra CLI arguments', default: '' }
+outputs:
+  markdown-file: { description: 'Path of the Markdown report', value: '${{ steps.run.outputs.markdown-file }}' }
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      with: { node-version: '20' }
+    - id: run
+      shell: bash
+      env:
+        PG_PATH: ${{ inputs.path }}
+        PG_MAX_SIZE: ${{ inputs.max-size }}
+        PG_TARBALL: ${{ inputs.tarball }}
+        PG_RUN_SCRIPTS: ${{ inputs.run-scripts }}
+        PG_FAIL_ON: ${{ inputs.fail-on }}
+        PG_CONFIG: ${{ inputs.config }}
+        PG_SARIF: ${{ inputs.sarif }}
+        PG_JSON: ${{ inputs.json }}
+        PG_SUMMARY: ${{ inputs.job-summary }}
+        PG_ARGS: ${{ inputs.args }}
+        PG_BIN: ${{ github.action_path }}/bin/publish-gauge.js
+      run: |
+        md="$RUNNER_TEMP/publish-gauge.md"
+        args=("$PG_PATH" --fail-on "$PG_FAIL_ON" --markdown "$md")
+        [ -n "$PG_MAX_SIZE" ] && args+=(--max-size "$PG_MAX_SIZE")
+        [ -n "$PG_TARBALL" ] && args+=(--tarball "$PG_TARBALL")
+        [ "$PG_RUN_SCRIPTS" = "true" ] && args+=(--run-scripts)
+        [ -n "$PG_CONFIG" ] && args+=(--config "$PG_CONFIG")
+        [ -n "$PG_SARIF" ] && args+=(--sarif "$PG_SARIF")
+        [ -n "$PG_JSON" ] && args+=(--json "$PG_JSON")
+        set +e
+        # shellcheck disable=SC2086
+        node "$PG_BIN" "${args[@]}" $PG_ARGS
+        code=$?
+        set -e
+        echo "markdown-file=$md" >> "$GITHUB_OUTPUT"
+        if [ "$PG_SUMMARY" = "true" ] && [ -f "$md" ]; then cat "$md" >> "$GITHUB_STEP_SUMMARY"; fi
+        exit $code
