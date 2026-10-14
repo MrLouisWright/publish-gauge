@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1 (2026-10-14)
+
+- Tests: the `.npmrc` token check now uses a prebuilt tarball, because npm 10+ never packs `.npmrc` (the 1.0.0 test failed in CI). No change to the tool's behaviour.
+
 ## 1.0.0 (2026-10-14)
 
 First release, by Louis Wright.

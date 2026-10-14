@@ -1,6 +1,6 @@
 {
   "name": "publish-gauge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Check what npm publish will actually ship before you publish: packs the tarball and verifies entry points, exports and bin targets exist and load, types resolve, no secrets or junk are included, and size stays within budget. Text/JSON/SARIF/Markdown, allowlist with expiry, GitHub Action. Zero deps.",
   "type": "module",
   "main": "./src/index.js",

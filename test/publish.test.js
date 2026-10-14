@@ -52,10 +52,12 @@ test('size budgets and large files', () => {
   assert.equal(parseSize('2mb'), 2 * 1024 * 1024); assert.equal(parseSize('1.5k'), 1536); assert.throws(() => parseSize('lots'));
 });
 test('private packages and .npmrc tokens', () => {
-  const d = proj({ ...good({ private: true, files: ['index.js', 'index.d.ts', '.npmrc'] }), '.npmrc': '//registry.npmjs.org/:_authToken=abc\n' });
-  const f = analyze(d).findings; assert.ok(f.some((x) => x.rule === 'private-package'));
+  // npm 10+ never packs .npmrc, so check it through --tarball (older npm and other packers can ship it)
+  const t = join(mkdtempSync(join(tmpdir(), 'pg-t-')), 'p-1.0.0.tgz');
+  writeFileSync(t, tar({ 'package.json': JSON.stringify({ name: 'p', version: '1.0.0', license: 'MIT', private: true, main: 'index.js' }), 'index.js': 'module.exports = 1;\n', 'README.md': '#', '.npmrc': '//registry.npmjs.org/:_authToken=abc\n' }));
+  const f = analyze('.', { tarball: t }).findings; assert.ok(f.some((x) => x.rule === 'private-package'));
   assert.match(f.find((x) => x.rule === 'secret-file').message, /auth token/);
-  assert.ok(!rules(d, { allowPrivate: true }).includes('private-package'));
+  assert.ok(!rules('.', { tarball: t, allowPrivate: true }).includes('private-package'));
 });
 test('.env.example is not a secret; ignoreFiles suppresses', () => {
   const d = proj({ ...good({ files: ['index.js', 'index.d.ts', '.env.example', 'certs'] }), '.env.example': 'A=\n', 'certs/dev.pem': 'x' });
