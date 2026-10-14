@@ -57,7 +57,7 @@
         <a class="btn" href="https://github.com/MrLouisWright/publish-gauge">Source on GitHub</a>
       </div>
       <div class="badges">
-        <a href="https://github.com/MrLouisWright/publish-gauge/pkgs/npm/publish-gauge"><img src="https://img.shields.io/badge/GitHub%20Packages-%40mrlouiswright%2Fpublish-gauge-24292f?style=flat-square&amp;logo=github" alt="GitHub Packages: @mrlouiswright/publish-gauge" height="20"></a><a href="https://github.com/MrLouisWright/publish-gauge/releases"><img src="https://img.shields.io/github/v/tag/MrLouisWright/publish-gauge?style=flat-square&amp;label=version" alt="Latest version tag" height="20"></a>
+        <a href="https://github.com/MrLouisWright/publish-gauge/pkgs/npm/publish-gauge"><img src="https://img.shields.io/badge/GitHub%20Packages-%40mrlouiswright%2Fpublish--gauge-24292f?style=flat-square&amp;logo=github" alt="GitHub Packages: @mrlouiswright/publish-gauge" height="20"></a><a href="https://github.com/MrLouisWright/publish-gauge/releases"><img src="https://img.shields.io/github/v/tag/MrLouisWright/publish-gauge?style=flat-square&amp;label=version" alt="Latest version tag" height="20"></a>
         <a href="https://github.com/MrLouisWright/publish-gauge/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/MrLouisWright/publish-gauge/ci.yml?branch=main&amp;style=flat-square&amp;label=CI" alt="CI status" height="20"></a>
         <a href="https://github.com/MrLouisWright/publish-gauge/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License: MIT" height="20"></a>
         <a href="https://github.com/MrLouisWright/publish-gauge"><img src="https://img.shields.io/github/stars/MrLouisWright/publish-gauge?style=flat-square" alt="GitHub stars for publish-gauge" height="20"></a>
@@ -74,7 +74,7 @@
 <section class="sec" id="problem">
   <div class="wrap narrow">
     <h2><span class="h-idx">01</span> Why it exists</h2>
-    <p class="big">Most broken npm releases are caused by packaging, not code. main points at a dist/ folder that was never built. exports names a file that files leaves out. The .d.ts imports a sibling declaration that was not shipped, so users silently get any. The bin has no shebang. A .env file or an .npmrc with a token goes out to the whole world. publish-gauge runs npm pack, opens the real tarball, and checks it the way your users will consume it: every entry point must exist and load, types must resolve, and nothing that should stay private is included. Each problem comes with a file, a severity and a concrete fix.</p>
+    <p class="big">Most broken npm releases are caused by packaging, not code. main points at a dist/ folder that was never built. exports names a file that files leaves out. The .d.ts imports a sibling declaration that was not shipped, so users silently get any. The bin has no shebang. A .env file or an .npmrc with a token goes out to the whole world. publish-gauge runs “npm pack”, opens the real tarball, and checks it the way your users will consume it: every entry point must exist and load, types must resolve, and nothing that should stay private is included. Each problem comes with a file, a severity and a concrete fix.</p>
     <p class="big">CLI, library and GitHub Action. Node.js 18+, zero runtime dependencies. By Louis Wright.</p>
   </div>
 </section>
