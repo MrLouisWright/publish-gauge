@@ -202,6 +202,10 @@ Types are included.
 
 Node.js 18 or newer. Zero runtime dependencies.
 
+## Support
+
+If this project is useful to you, you can support its development with a donation: [Buy me a coffee](https://donate.stripe.com/aFa00lek3cvX4Ds2Fk9EI0b). It helps keep these tools maintained, documented and free for everyone.
+
 ## Licence
 
-MIT © Louis Wright. See [LICENSE](LICENSE).
+MIT © Louis Wright ([Louis Wright](https://github.com/MrLouisWright))
