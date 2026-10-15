@@ -1,5 +1,7 @@
 # publish-gauge
 
+[![npm version](https://img.shields.io/npm/v/publish-gauge.svg)](https://www.npmjs.com/package/publish-gauge) [![CI](https://github.com/MrLouisWright/publish-gauge/actions/workflows/ci.yml/badge.svg)](https://github.com/MrLouisWright/publish-gauge/actions/workflows/ci.yml) [![Node](https://img.shields.io/node/v/publish-gauge.svg)](https://nodejs.org) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 > Check what `npm publish` will actually ship, before you publish it.
 
 Most broken npm releases are caused by packaging, not code. `main` points at a `dist/` folder that was never built. `exports` names a file that `files` leaves out. The `.d.ts` imports a sibling declaration that was not shipped, so users silently get `any`. The bin has no shebang. A `.env` file or an `.npmrc` with a token goes out to the whole world. `publish-gauge` runs `npm pack`, opens the real tarball, and checks it the way your users will consume it: every entry point must exist **and load**, types must resolve, and nothing that should stay private is included. Each problem comes with a file, a severity and a **concrete fix**.
