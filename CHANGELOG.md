@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2 - 2026-10-20
+
+- Docs: README badges, credit and support sections, links to the project site; homepage now points to the project site.
+- No changes to the package code.
+
 ## 1.0.1 (2026-10-14)
 
 - Tests: the `.npmrc` token check now uses a prebuilt tarball, because npm 10+ never packs `.npmrc` (the 1.0.0 test failed in CI). No change to the tool's behaviour.
