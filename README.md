@@ -99,7 +99,7 @@ LOW      test/a.test.js test/a.test.js (19 B) is not needed at runtime [junk-fil
 ## Options
 
 ```text
-publish-gauge 1.0.0 — check what npm publish will ship before you publish
+publish-gauge 1.0.2 — check what npm publish will ship before you publish
 
 Usage: publish-gauge [dir] [options]
 
@@ -191,12 +191,20 @@ The action runs the bundled CLI with Node 20; it has no dependencies to install.
 
 ## Library
 
+Install it in your project first:
+
+```bash
+npm install --save-dev publish-gauge
+```
+
 ```js
 import { check, readTarball, exportTargets } from 'publish-gauge';
 const report = check('.', { maxSize: '500kb' });
 console.log(report.info.packedSize, report.findings.length);
 exportTargets({ '.': { import: './a.mjs', require: './a.cjs' } });
 ```
+
+The package is ESM-only (there is no CommonJS build): use `import`, or `await import("publish-gauge")` from CommonJS.
 
 Types are included.
 
